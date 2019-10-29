@@ -90,8 +90,10 @@ DefOffset 1, e_ai_st
 DefOffset 1, e_ai_pre_st
 DefOffset 1, e_ai_patrol_step_l
 DefOffset 1, e_ai_patrol_step_h
+;; Size of entity
+DefOffset 0, sizeof_e
 
-;;
+;;=============================================================================
 ;; Entity status enum
 ;;
 DefEnum e_ai_st
@@ -99,6 +101,24 @@ Enum e_ai_st, noAI
 Enum e_ai_st, stand_by
 Enum e_ai_st, move_to
 Enum e_ai_st, patrol
+
+;;=============================================================================
+;; entity component types
+;;
+e_cmp_AI = 0x01
+e_cmp_Render = 0x02
+e_cmp_Physics = 0x04
+e_cmp_default = e_cmp_Render | e_cmp_Physics
+
+;;=============================================================================
+;; Entity Status enum
+;;
+e_w_invalidEntry = 0xff
+
+;;=============================================================================
+;; Utility Definitions
+;;
+nullptr = 0x000
         
 
     

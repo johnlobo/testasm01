@@ -5,9 +5,10 @@
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
-.include "man/entity.h.s"
 .include "cmp/entity.h.s"
+.include "man/entity.h.s"
 .include "cmp/array_structure.h.s"
+.include "assets/assets.h.s"
 
 .module entity_manager
 
@@ -17,7 +18,7 @@
 
 ;;-----------------------------------------------------------------
 ;; Entity Components
-DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_Default
+DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -40,7 +41,7 @@ man_entity_getArray::
 ;;    AF, HL
 ;; RETURN:
 ;;
-
+man_entity_init::
     ;; Reset all component vector values
     xor a
     ld (_entity_num), a

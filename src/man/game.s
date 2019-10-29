@@ -8,15 +8,16 @@
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
 .include "sys/render.h.s"
+.include "assets/assets.h.s"
 
 .module game_manager
 
 ;;==================================================================
 ;; Manager Configuration Constants
 ;;==================================================================
-ent1: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
-ent1: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
-ent1: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
+ent1: DefineCmp_Entity 0, 0, 1, 2, 8 16, 1, _sp_pieces_0, 1
+ent2: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
+ent3: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; man_game_init
