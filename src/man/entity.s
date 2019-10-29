@@ -5,7 +5,9 @@
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
-.include "entity.h.s"
+.include "man/entity.h.s"
+.include "cmp/entity.h.s"
+.include "cmp/array_structure.h.s"
 
 .module entity_manager
 
