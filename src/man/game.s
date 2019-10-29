@@ -9,8 +9,13 @@
 .include "man/entity.h.s"
 .include "sys/render.h.s"
 .include "assets/assets.h.s"
+;;.include "cmp/array_structure.h.s"
+
 
 .module game_manager
+
+;;DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
+
 
 ;;==================================================================
 ;; Manager Configuration Constants
@@ -54,6 +59,6 @@ man_game_update::
 ;; man_game_render
 ;;
 man_game_render::
-    call sys_eren_update
+    ;;call sys_eren_update
     
     ret

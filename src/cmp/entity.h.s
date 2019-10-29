@@ -31,7 +31,7 @@ __off = 0
  
 ;; Default constructor for Entity t
   .macro DefineCmp_Entity_default
-    DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, ecmp_default, nullptr, 1
+    DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, e_cmp_default, nullptr, 1
   .endm
   
 ;; Defines an array of N entities with default values
@@ -113,7 +113,7 @@ e_cmp_default = e_cmp_Render | e_cmp_Physics
 ;;=============================================================================
 ;; Entity Status enum
 ;;
-e_w_invalidEntry = 0xff
+e_w_invalidEntity = 0xff
 
 ;;=============================================================================
 ;; Utility Definitions
