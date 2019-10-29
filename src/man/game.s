@@ -6,13 +6,17 @@
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
 .include "cmp/entity.h.s"
+.include "man/entity.h.s"
+.include "sys/render.h.s"
 
 .module game_manager
 
 ;;==================================================================
 ;; Manager Configuration Constants
 ;;==================================================================
-
+ent1: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
+ent1: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
+ent1: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; man_game_init
@@ -23,8 +27,8 @@ man_game_init::
     
     ;;Init Systems
     call sys_eren_init
-    call sys_physics_init
-    call sys_input_init
+    ;;call sys_physics_init
+    ;;call sys_input_init
     
     ;; Init 3 test entitites
     ld hl, #ent1
@@ -40,8 +44,8 @@ man_game_init::
 ;; man_game_update
 ;;
 man_game_update::
-    call sys_input_update
-    call sys_physics_update
+    ;;call sys_input_update
+    ;;call sys_physics_update
     
     ret
     

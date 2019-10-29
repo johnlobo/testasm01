@@ -1,0 +1,39 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 ;;=================================================================================
+                              2 ;;
+                              3 ;;a
+                              4 .macro DefineComponentArrayStructure _Tname, _N, DefineTypeMacroDefault
+                              5     Tname'_num: .db 0
+                              6     Tname'_pend:    dw _Tname'_array
+                              7     Tname'_array:
+                              8     .rept _N
+                              9         DefineTypeMacroDefault
+                             10     .endm
+                             11 .endm
+                             12 
+                             13 ;;=================================================================================
+                             14 ;;
+                             15 ;;
+                             16 .macro DefineComponentArrayStructure_Size _Tname. _N, ComponentSize
+                             17     Tname'_num: .db 0
+                             18     Tname'_pend:    dw _Tname'_array
+                             19     Tname'_array:
+                             20     .rept _N
+                             21         .ds _N * ComponentSize
+                             22     .endm
+                             23 endm
+                             24 
+                             25 ;;=================================================================================
+                             26 ;;
+                             27 ;;
+                             28 .macro DefineComponentPointerArrayStructure_Size _Tname. _N
+                             29     Tname'_ptr_pend: .dw _Tname'ptr_array
+                             30     Tname'_ptr_array::
+                             31     .rept _N
+                             32         .dw 0x0000
+                             33     .endm
+                             34 endm

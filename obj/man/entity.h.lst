@@ -1,0 +1,19 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 ;;===================================================================================
+                              2 ;;
+                              3 ;;
+                              4 
+                              5 .globl man_entity_init
+                              6 .globl man_entity_create
+                              7 .globl man_entity_new
+                              8 .globl man_entity_getArray
+                              9 
+                             10 ;;===================================================================================
+                             11 ;;
+                             12 ;;
+                             13 
+                     000A    14 max_entities = 10

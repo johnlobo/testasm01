@@ -18,8 +18,8 @@
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
-
 .include "cpct_functions.h.s"
+.include "man/game.h.s"
 
 ;;
 ;; Start of _DATA area 

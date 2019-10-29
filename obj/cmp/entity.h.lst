@@ -1,0 +1,162 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 ;; ENTITY COMPONENT
+                              2 ;;  1B component type (cmp_type)
+                              3 ;;  2B Position (x, y)
+                              4 ;;  2B Velocity (vx, vy)
+                              5 ;;  2B Size (sx, sy)
+                              6 ;;  2B Sprite Pointer (pspr)
+                              7 ;;  2B Last Video Pointer (lastVP)
+                              8 ;;  2B AI-AIM Target (ai_aim_x, ai_aim_y)
+                              9 ;;  1B AI-Status    (ai_st)
+                             10 ;;  1B AI-Previous-Status (ai_pre_st)
+                             11 ;;  2B AI_Next-Patrol-Step (ai_patrol_setp) Pointer
+                             12 
+                             13 ;; Easily assign offsets to Entity t members without error
+                     0000    14 __off = 0
+                             15 .macro DefOffset _size, _name
+                             16     _name = __off           ;; Define name constant on current offset
+                             17     __off = __off + _size   ;; Add sizeiof (_name)  size to offset
+                             18 .endm
+                             19 
+                             20 ;; Easily define an enumeration statrting at 0
+                             21 ;;  It adds sizes of types to an offset constant 
+                             22 .macro DefEnum _name
+                             23     _name'_offset = 0
+                             24 .endm
+                             25 
+                             26 ;; Define enumeration element for an enumeration name
+                             27 .macro Enum _enumname, _element
+                             28     _enumname'_'_element = _enumname'_offset
+                             29     _enumname'_offset = _enumname'_offset + 1
+                             30 .endm
+                             31  
+                             32 ;; Default constructor for Entity t
+                             33   .macro DefineCmp_Entity_default
+                             34     DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, ecmp_default, nullptr, 1
+                             35   .endm
+                             36   
+                             37 ;; Defines an array of N entities with default values
+                             38   .macro DefineCmpArray_Entity _N
+                             39     .rept _N
+                             40         DefineCmp_Entity_default
+                             41     .endm
+                             42   .endm
+                             43   
+                             44 ;;Defines a new entity structure
+                             45 ;; All entity data together to simplify acess, at the cost
+                             46 .macro DefineCmp_Entity _x, _y, _vx, _vy, _w, _h, _cmp_type, _pspr, _aist
+                             47     .narg __argn
+                             48     .if __argn - 9
+                             49         .error 1
+                             50     .else
+                             51         ;; Type of component
+                             52         .db _cmp_type   ;; Types of components that the entity has
+                             53         ;; CMP Position
+                             54         .db _x, _y      ;; position
+                             55         ;; CMP Velocity
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+
+
+                             56         .db _vx, _vy    ;; velocity
+                             57         ;; CMP Render
+                             58         .db _w, _h      ;; size
+                             59         .dw _pspr       ;; Sprite
+                             60         .dw 0xcccc      ;; last video memory pointer
+                             61         ;; CMP AI
+                             62         .db 0x00, 0x00  ;; AI-aim (ai aim x, ai aim y)
+                             63         .db _aist        ;; AI-status (ai st)
+                             64         .db _aist        ;; AI-previous-status (ai pre st)
+                             65         .dw nullptr     ;; Next AI Patrol step (ai patrol step)
+                             66      .endif
+                             67 .endm
+                             68 
+                             69 ;;
+                             70 ;; Entity offsets
+                             71 ;;
+   0000                      72 DefOffset 1, e_cmp_type
+                     0000     1     e_cmp_type = __off           ;; Define name constant on current offset
+                     0001     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+                             73 ;; CMP Po stion
+   0000                      74 DefOffset 1, e_x
+                     0001     1     e_x = __off           ;; Define name constant on current offset
+                     0002     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      75 DefOffset 1, e_y
+                     0002     1     e_y = __off           ;; Define name constant on current offset
+                     0003     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+                             76 ;; CMP Ve locity
+   0000                      77 DefOffset 1, e_vx
+                     0003     1     e_vx = __off           ;; Define name constant on current offset
+                     0004     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      78 DefOffset 1, e_vy
+                     0004     1     e_vy = __off           ;; Define name constant on current offset
+                     0005     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+                             79 ;; CMP Re nder
+   0000                      80 DefOffset 1, e_w
+                     0005     1     e_w = __off           ;; Define name constant on current offset
+                     0006     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      81 DefOffset 1, e_h
+                     0006     1     e_h = __off           ;; Define name constant on current offset
+                     0007     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      82 DefOffset 1, e_pspr_l
+                     0007     1     e_pspr_l = __off           ;; Define name constant on current offset
+                     0008     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      83 DefOffset 1, e_pspr_h
+                     0008     1     e_pspr_h = __off           ;; Define name constant on current offset
+                     0009     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      84 DefOffset 1, e_lastVP_l
+                     0009     1     e_lastVP_l = __off           ;; Define name constant on current offset
+                     000A     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      85 DefOffset 1, e_lastVP_h
+                     000A     1     e_lastVP_h = __off           ;; Define name constant on current offset
+                     000B     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+                             86 ;; CMP AI 
+   0000                      87 DefOffset 1, e_ai_aimx
+                     000B     1     e_ai_aimx = __off           ;; Define name constant on current offset
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+
+
+                     000C     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      88 DefOffset 1, e_ai_aimy
+                     000C     1     e_ai_aimy = __off           ;; Define name constant on current offset
+                     000D     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      89 DefOffset 1, e_ai_st
+                     000D     1     e_ai_st = __off           ;; Define name constant on current offset
+                     000E     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      90 DefOffset 1, e_ai_pre_st
+                     000E     1     e_ai_pre_st = __off           ;; Define name constant on current offset
+                     000F     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      91 DefOffset 1, e_ai_patrol_step_l
+                     000F     1     e_ai_patrol_step_l = __off           ;; Define name constant on current offset
+                     0010     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+   0000                      92 DefOffset 1, e_ai_patrol_step_h
+                     0010     1     e_ai_patrol_step_h = __off           ;; Define name constant on current offset
+                     0011     2     __off = __off + 1   ;; Add sizeiof (_name)  size to offset
+                             93 
+                             94 ;;
+                             95 ;; Entity status enum
+                             96 ;;
+   0000                      97 DefEnum e_ai_st
+                     0000     1     e_ai_st_offset = 0
+   0000                      98 Enum e_ai_st, noAI
+                     0000     1     e_ai_st_noAI = e_ai_st_offset
+                     0001     2     e_ai_st_offset = e_ai_st_offset + 1
+   0000                      99 Enum e_ai_st, stand_by
+                     0001     1     e_ai_st_stand_by = e_ai_st_offset
+                     0002     2     e_ai_st_offset = e_ai_st_offset + 1
+   0000                     100 Enum e_ai_st, move_to
+                     0002     1     e_ai_st_move_to = e_ai_st_offset
+                     0003     2     e_ai_st_offset = e_ai_st_offset + 1
+   0000                     101 Enum e_ai_st, patrol
+                     0003     1     e_ai_st_patrol = e_ai_st_offset
+                     0004     2     e_ai_st_offset = e_ai_st_offset + 1
+                            102         
+                            103 
+                            104     

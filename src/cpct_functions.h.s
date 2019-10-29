@@ -1,3 +1,4 @@
+;;=============================================================================
 ;; 
 ;; Declare all function entry points as global symbols for the compiler.
 ;; (The linker will know what to do with them)

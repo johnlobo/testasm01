@@ -24,14 +24,14 @@ __off = 0
 .endm
 
 ;; Define enumeration element for an enumeration name
-.macro Enum _enumname, element
-    _enumname'-'_element = enumname'_offset
-    _enumname'-offset = enumname'_offset + 1
- .endm
+.macro Enum _enumname, _element
+    _enumname'_'_element = _enumname'_offset
+    _enumname'_offset = _enumname'_offset + 1
+.endm
  
 ;; Default constructor for Entity t
   .macro DefineCmp_Entity_default
-    DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, ecmp_default
+    DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, ecmp_default, nullptr, 1
   .endm
   
 ;; Defines an array of N entities with default values
@@ -43,7 +43,7 @@ __off = 0
   
 ;;Defines a new entity structure
 ;; All entity data together to simplify acess, at the cost
-.macro DefineCmp_Entity _x, _y, _vx, _vy, _w, _h, _cmp_type, _pspr, 
+.macro DefineCmp_Entity _x, _y, _vx, _vy, _w, _h, _cmp_type, _pspr, _aist
     .narg __argn
     .if __argn - 9
         .error 1
@@ -60,8 +60,8 @@ __off = 0
         .dw 0xcccc      ;; last video memory pointer
         ;; CMP AI
         .db 0x00, 0x00  ;; AI-aim (ai aim x, ai aim y)
-        .db aist        ;; AI-status (ai st)
-        .db aist        ;; AI-previous-status (ai pre st)
+        .db _aist        ;; AI-status (ai st)
+        .db _aist        ;; AI-previous-status (ai pre st)
         .dw nullptr     ;; Next AI Patrol step (ai patrol step)
      .endif
 .endm
@@ -69,36 +69,36 @@ __off = 0
 ;;
 ;; Entity offsets
 ;;
-DefOffset1, e_cmp_type
-;; CMP Postion
-DefOffset1, e_x
-DefOffset1, e_y
-;; CMP Velocity
-DefOffset1, e_vx
-DefOffset1, e_vy
-;; CMP Render
-DefOffset1, e_w
-DefOffset1, e_h
-DefOffset1, e_pspr_l
-DefOffset1, e_pspr_h
-DefOffset1, e_lastVP_l
-DefOffset1, e_lastVP_h
-;; CMP AI
-DefOffset1, e_ai_aimx
-DefOffset1, e_ai_aimy
-DefOffset1, e_ai_st
-DefOffset1, e_ai_pre_st
-DefOffset1, e_ai_patrol_step_l
-DefOffset1, e_ai_patrol_step_h
+DefOffset 1, e_cmp_type
+;; CMP Po stion
+DefOffset 1, e_x
+DefOffset 1, e_y
+;; CMP Ve locity
+DefOffset 1, e_vx
+DefOffset 1, e_vy
+;; CMP Re nder
+DefOffset 1, e_w
+DefOffset 1, e_h
+DefOffset 1, e_pspr_l
+DefOffset 1, e_pspr_h
+DefOffset 1, e_lastVP_l
+DefOffset 1, e_lastVP_h
+;; CMP AI 
+DefOffset 1, e_ai_aimx
+DefOffset 1, e_ai_aimy
+DefOffset 1, e_ai_st
+DefOffset 1, e_ai_pre_st
+DefOffset 1, e_ai_patrol_step_l
+DefOffset 1, e_ai_patrol_step_h
 
 ;;
 ;; Entity status enum
 ;;
 DefEnum e_ai_st
-Enum e_ai_st noAI
-Enum e_ai_st stand_by
-Enum e_ai_st move_to
-Enum e_ai_st patrol
+Enum e_ai_st, noAI
+Enum e_ai_st, stand_by
+Enum e_ai_st, move_to
+Enum e_ai_st, patrol
         
 
     
