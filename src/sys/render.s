@@ -1,6 +1,8 @@
 ;;=============================================================================
+;; RENDER SYSTEM
 ;;
-;;
+
+.module render_system
 
 .include "cpctelera.h.s"
 .include "cmp/entity.h.s"
@@ -8,7 +10,6 @@
 .include "assets/assets.h.s"
 
 
-.module sys_entity_render
 
 ;;=============================================================================
 ;;  Render System Constants

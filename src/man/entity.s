@@ -1,7 +1,8 @@
-;;
+;;=============================================================================
 ;;  Entity Manager
 ;;
-;;
+
+.module entity_manager
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
@@ -10,7 +11,6 @@
 .include "cmp/array_structure.h.s"
 .include "assets/assets.h.s"
 
-.module entity_manager
 
 ;;=================================================================
 ;; Manager Memeber Variables

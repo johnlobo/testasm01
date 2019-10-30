@@ -16,6 +16,8 @@
 ;;  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;;-------------------------------------------------------------------------------
 
+.module main
+
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
 .include "cpct_functions.h.s"

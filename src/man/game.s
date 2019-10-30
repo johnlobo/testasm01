@@ -1,28 +1,23 @@
-;;
+;;=============================================================================
 ;; GAME SYSTEM MANAGER
 ;;
-;;
+
+.module game_manager
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
 .include "sys/render.h.s"
+.include "sys/input.h.s"
 .include "assets/assets.h.s"
-;;.include "cmp/array_structure.h.s"
-
-
-.module game_manager
-
-;;DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
-
 
 ;;==================================================================
 ;; Manager Configuration Constants
 ;;==================================================================
-ent1: DefineCmp_Entity 0, 0, 1, 2, 8 16, 1, _sp_pieces_0, 1
-ent2: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
-ent3: DefineCmp_Entity 0, 0, 1, 2, 4 16, 1, nullptr, 1
+ent1: DefineCmp_Entity 0, 0, 0, 0, 8 16, 1, _sp_pieces_0, 1
+ent2: DefineCmp_Entity 20, 100, -1, 2, 8 16, 1, _sp_pieces_1, 1
+ent3: DefineCmp_Entity 60, 150, 2, 4, 8 16, 1, _sp_pieces_2, 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; man_game_init
@@ -50,7 +45,7 @@ man_game_init::
 ;; man_game_update
 ;;
 man_game_update::
-    ;;call sys_input_update
+    call sys_input_update
     ;;call sys_physics_update
     
     ret
@@ -59,6 +54,6 @@ man_game_update::
 ;; man_game_render
 ;;
 man_game_render::
-    ;;call sys_eren_update
+    call sys_eren_update
     
     ret
