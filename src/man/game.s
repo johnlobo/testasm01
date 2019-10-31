@@ -10,6 +10,7 @@
 .include "man/entity.h.s"
 .include "sys/render.h.s"
 .include "sys/input.h.s"
+.include "sys/physics.h.s"
 .include "assets/assets.h.s"
 
 ;;==================================================================
@@ -28,7 +29,7 @@ man_game_init::
     
     ;;Init Systems
     call sys_eren_init
-    ;;call sys_physics_init
+    call sys_physics_init
     ;;call sys_input_init
     
     ;; Init 3 test entitites
