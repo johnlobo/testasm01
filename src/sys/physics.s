@@ -6,6 +6,9 @@
 
 .include "cpctelera.h.s"
 .include "cmp/entity.h.s"
+.include "sys/render.h.s"
+.include "sys/physics.h.s"
+.include "man/entity.h.s"
 
 sys_physics_init::
     ret
@@ -19,12 +22,49 @@ sys_physics_init::
 ;;  DETROYS AF, BC, DE,HL, IX
 ;;
 sys_physics_update::
-    ld b, a     ;; loads number of entities into b
-    ;; x coordinate update
-    ld a, e_x(ix)
-    add e_vx(ix)
-    ;; y coordinate update
-    ld a, e_y(ix)
-    add e_vy(ix)
-    
-    ret
+
+    ld b, a ;; save number of entities
+_update_loop:
+    ;; UPDATE X
+    ld a, #screen_width + 1
+    sub e_w(ix)
+    ld c, a
+
+    ld a, e_x(ix)       ;; a = entity.x
+    add e_vx(ix)        ;; a = x + vx
+    cp c                ;; 
+    jr nc, invalid_x    ;; 
+valid_x:
+    ld e_x(ix), a       ;; store new x value in entity
+    jr endif_x
+invalid_x:
+    ld a, e_vx(ix)
+    neg
+    ld e_vx(ix), a
+endif_x:
+
+    ;; UPDATE Y
+    ld a, #screen_height + 1
+    sub e_h(ix)
+    ld c, a
+
+    ld a, e_y(ix)       ;; a = entity.x
+    add e_vy(ix)        ;; a = x + vx
+    cp c                ;; 
+    jr nc, invalid_y    ;; 
+valid_y:
+    ld e_y(ix), a       ;; store new x value in entity
+    jr endif_y
+invalid_y:
+    ld a, e_vy(ix)
+    neg
+    ld e_vy(ix), a
+endif_y:
+
+    dec b               ;; decrements number of entities
+    ret z               ;; return if no entities left
+
+    ld de, #sizeof_e    ;; offset
+    add ix, de
+    jr _update_loop     ;; back to loop start
+

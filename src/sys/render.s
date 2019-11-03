@@ -6,6 +6,7 @@
 
 .include "cpctelera.h.s"
 .include "cmp/entity.h.s"
+.include "man/entity.h.s"
 .include "cpct_functions.h.s"
 .include "assets/assets.h.s"
 

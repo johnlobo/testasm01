@@ -31,6 +31,7 @@ DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
 ;;      a: number of entities created        
 man_entity_getArray::
     ld ix, #_entity_array
+    ld a, (_entity_num)
     ret
     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -4,3 +4,9 @@
 
 .globl sys_eren_init
 .globl sys_eren_update
+
+;;=============================================================================
+;; RENDER CONSTANTS
+;;
+screen_width = 80
+screen_height = 200

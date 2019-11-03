@@ -12,11 +12,12 @@
 .include "sys/input.h.s"
 .include "sys/physics.h.s"
 .include "assets/assets.h.s"
+.include "cpct_functions.h.s"
 
 ;;==================================================================
 ;; Manager Configuration Constants
 ;;==================================================================
-ent1: DefineCmp_Entity 0, 0, 0, 0, 8 16, 1, _sp_pieces_0, 1
+ent1: DefineCmp_Entity 0, 0, 1, 1, 8 16, 1, _sp_pieces_0, 1
 ent2: DefineCmp_Entity 20, 100, -1, 2, 8 16, 1, _sp_pieces_1, 1
 ent3: DefineCmp_Entity 60, 150, 2, 4, 8 16, 1, _sp_pieces_2, 1
 
@@ -30,7 +31,7 @@ man_game_init::
     ;;Init Systems
     call sys_eren_init
     call sys_physics_init
-    ;;call sys_input_init
+    call sys_input_init
     
     ;; Init 3 test entitites
     ld hl, #ent1
@@ -46,8 +47,10 @@ man_game_init::
 ;; man_game_update
 ;;
 man_game_update::
+    call man_entity_getArray
     call sys_input_update
-    ;;call sys_physics_update
+    call man_entity_getArray
+    call sys_physics_update
     
     ret
     
@@ -55,6 +58,7 @@ man_game_update::
 ;; man_game_render
 ;;
 man_game_render::
+    call man_entity_getArray
     call sys_eren_update
     
     ret
