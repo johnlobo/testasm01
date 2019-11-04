@@ -41,6 +41,7 @@ man_entity_getArray::
 ;; DESTROYS:
 ;;    AF, HL
 ;; RETURN:
+;;  HL: pointer to the start of the array
 ;;
 man_entity_init::
     ;; Reset all component vector values

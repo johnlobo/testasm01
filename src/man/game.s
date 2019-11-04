@@ -18,8 +18,10 @@
 ;; Manager Configuration Constants
 ;;==================================================================
 ent1: DefineCmp_Entity 0, 0, 1, 1, 8 16, 1, _sp_pieces_0, 1
-ent2: DefineCmp_Entity 20, 100, -1, 2, 8 16, 1, _sp_pieces_1, 1
-ent3: DefineCmp_Entity 60, 150, 2, 4, 8 16, 1, _sp_pieces_2, 1
+ent2: DefineCmp_Entity 20, 40, -2, 2, 8 16, 1, _sp_pieces_1, 1
+ent3: DefineCmp_Entity 30, 70, 2, 0, 8 16, 1, _sp_pieces_2, 1
+ent4: DefineCmp_Entity 40, 100, -2, -2, 8 16, 1, _sp_pieces_1, 1
+ent5: DefineCmp_Entity 50, 130, 0, -2, 8 16, 1, _sp_pieces_2, 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; man_game_init
@@ -33,14 +35,18 @@ man_game_init::
     call sys_physics_init
     call sys_input_init
     
-    ;; Init 3 test entitites
+    ;; Init 5 test entitites
     ld hl, #ent1
     call man_entity_create
     ld hl, #ent2
     call man_entity_create
     ld hl, #ent3
     call man_entity_create
-    
+    ld hl, #ent4
+    call man_entity_create
+    ld hl, #ent5
+    call man_entity_create
+
     ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
