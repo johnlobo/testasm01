@@ -17,7 +17,7 @@
 ;;=================================================================================
 ;; DefineComponentArrayStructure_Size
 ;;
-.macro DefineComponentArrayStructure_Size _Tname. _N, _ComponentSize
+.macro DefineComponentArrayStructure_Size _Tname, _N, _ComponentSize
     _Tname'_num:    .db 0
     _Tname'_pend:   .dw _Tname'_array
     _Tname'_array:
@@ -27,10 +27,10 @@
 ;;=================================================================================
 ;; DefineComponentPointerArrayStructure_Size
 ;;
-;;.macro DefineComponentPointerArrayStructure_Size _Tname. _N
-;;    _Tname'_ptr_pend: .dw _Tname'_ptr_array
-;;    _Tname'_ptr_array::
-;;    .rept _N
-;;        .dw 0x0000
-;;    .endm
-;;endm
+.macro DefineComponentPointerArrayStructure_Size _Tname, _N
+    _Tname'_ptr_pend: .dw _Tname'_ptr_array
+    _Tname'_ptr_array:
+    .rept _N
+        .dw 0x0000
+    .endm
+.endm
