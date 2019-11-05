@@ -7,3 +7,4 @@
 .globl _sp_pieces_1
 .globl _sp_pieces_0
 .globl _pal_main
+.globl _bg_back01

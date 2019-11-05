@@ -21,16 +21,32 @@ screen_start = 0xc000       ;; video memory start
 ;;=============================================================================
 ;; sys_eren_init
 ;;  Inits render System
+;; INPUT
+;;  HL : Pointer to the start of the entity array
 ;;  DESTROYS: AF, BC, DE, HL
 ;;
 sys_eren_init::
+    ;; Set entity number and pointers
+    ld (_entity_array_ptr_ix), hl
+
     ;; Set Mode 0
     ld c, #0
     call cpct_setVideoMode_asm
+
+    ;; Set Palette
     ld hl, #_pal_main       ;; palette array
     ld de, #16
     call cpct_setPalette_asm
+
+    ;; Set border
     cpctm_setBorder_asm HW_WHITE    ;; set border to gray
+    
+    ;; Draw background
+    ld hl, #_bg_back01
+    ld de, #0xc000
+    ld bc, #0x4000
+    ldir
+
     ret
 
 ;;=============================================================================
@@ -56,40 +72,37 @@ sys_eren_update::
 ;;  DESTROYS: AF, HL, BC, DE, IX
 ;;
 sys_eren_render_entities::
-    ld (_ent_counter), a
+_entity_array_ptr_ix = . +2
+    ld ix, #0x0000              ;; entity array pointer
+
 _update_loop:
-    ;; Erase previous instance
-    ld e, e_lastVP_l(ix)
-    ld d, e_lastVP_h(ix)
-    xor a
-    ld c, e_w(ix)
-    ld b, e_h(ix)
-    push bc
-    call cpct_drawSolidBox_asm
-    
+    ld a, e_w(ix)               ;; a= Entity.width
+    cp #e_w_invalidEntity       ;; if (entity.width == invalid)
+    ret z                       ;; return
+
+    cpctm_setBorder_asm HW_RED
+
     ;; Calculate new video memory pointer
     ld de, #screen_start
     ld c, e_x(ix)
     ld b, e_y(ix)
     call cpct_getScreenPtr_asm
     
-    ;; Store video memory pointer as last
-    ld e_lastVP_l(ix), l
-    ld e_lastVP_h(ix), h
+    ;;;; Store video memory pointer as last
+    ;;ld e_lastVP_l(ix), l
+    ;;ld e_lastVP_h(ix), h
     
     ;; Draw entity sprite
     ex de, hl
     ld l, e_pspr_l(ix)
     ld h, e_pspr_h(ix)
-    pop bc
-    call cpct_drawSprite_asm
-    
-_ent_counter = .+1
-    ld a, #0
-    dec a 
-    ret z
-    
-    ld (_ent_counter), a
+    ld c, e_w(ix)
+    ld b, e_h(ix)
+    ;;call cpct_drawSprite_asm
+    call cpct_drawSpriteBlended_asm
+
+    cpctm_setBorder_asm HW_WHITE
+
     ld bc, #sizeof_e
     add ix, bc
     jr _update_loop

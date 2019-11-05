@@ -44,9 +44,17 @@ PALETTE=0 8 13 3 6 15 24 18 9 12 20 14 2 4 1 26
 #$(eval $(call IMG2SP, CONVERT_PALETTE , $(PALETTE), g_palette ))
 #$(eval $(call IMG2SP, CONVERT         , img.png , w, h, array, palette, tileset))
 
+#palettes
+PALETTE=0 8 13 3 6 15 24 18 9 12 20 14 2 4 1 26
+#sprites
 $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites        ))
 $(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)         ))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))
 $(eval $(call IMG2SP, CONVERT         , img/pieces.png , 16, 16, sp_pieces, pal_main))
+# background
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
+$(eval $(call IMG2SP, SET_FOLDER      , src/assets/screen        ))
+$(eval $(call IMG2SP, CONVERT         , img/back01.png , 160, 200, bg_back01, pal_main))
 
 
 

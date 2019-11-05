@@ -1,6 +1,6 @@
 ;;=============================================================================
 ;;  Entity AI Manager
-;;
+;;=============================================================================
 
 .module entity_ai_manager
 
@@ -29,6 +29,7 @@ DefineComponentPointerArrayStructure_Size _ai, max_entities
 man_entity_ai_init::
     ld hl, (#_ai_ptr_array)     ;; Points to the beggin
     ld (#_ai_ptr_pend), hl       ;; Point hl the last point of the array
+
     xor a                       ;; a = 0
     ld (hl), a                  ;; set initial byte = 0
     ld e, h                     ;; copy hl to de
@@ -41,14 +42,14 @@ man_entity_ai_init::
 ;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FUNC: man_entity_ai_hl
+;; FUNC: man_entity_ai_HL
 ;;    
 ;; INPUT:
 ;; DESTROYS:
 ;; RETURN:
 ;;  HL: pointer to the begining of the ai pointer array
 ;;
-man_entity_ai_hl::
+man_entity_ai_HL::
     ld hl, #_ai_ptr_array
     ret
 

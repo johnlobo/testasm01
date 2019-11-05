@@ -6,9 +6,10 @@
 
 ;; Include all CPCtelera constant definitions, macros and variables
 .include "cpctelera.h.s"
+.include "cmp/array_structure.h.s"
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
-.include "cmp/array_structure.h.s"
+.include "man/entity_ai.h.s"
 .include "assets/assets.h.s"
 
 
@@ -29,7 +30,7 @@ DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
 ;; RETURN:
 ;;      IX: pointer to the entity array
 ;;      a: number of entities created        
-man_entity_getArray::
+man_entity_getArrayHL::
     ld ix, #_entity_array
     ld a, (_entity_num)
     ret

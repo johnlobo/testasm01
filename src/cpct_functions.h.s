@@ -14,6 +14,7 @@
 .globl cpct_scanKeyboard_f_asm
 .globl cpct_isKeyPressed_asm
 .globl cpct_waitVSYNC_asm
+.globl cpct_drawSpriteBlended_asm
 
 
 
