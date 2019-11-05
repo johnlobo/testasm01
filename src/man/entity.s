@@ -111,8 +111,8 @@ man_entity_create::
     ldir
     
     ;; Check for components to add the entity to
-    ;;ld a, e_cmp_type(ix)
-    ;;and #e_cmp_AI
-    ;;call nz, man_entity_ai_add
+    ld a, e_cmp_type(ix)
+    and #e_cmp_AI
+    call nz, man_entity_ai_add
     
     ret
