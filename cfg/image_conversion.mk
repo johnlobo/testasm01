@@ -54,7 +54,7 @@ $(eval $(call IMG2SP, CONVERT         , img/pieces.png , 16, 16, sp_pieces, pal_
 # background
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
 $(eval $(call IMG2SP, SET_FOLDER      , src/assets/screen        ))
-$(eval $(call IMG2SP, CONVERT         , img/back01.png , 160, 200, bg_back01, pal_main))
+$(eval $(call IMG2SP, CONVERT         , img/back01.png , 160, 200, bg_back01))
 
 
 

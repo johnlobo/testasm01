@@ -47,8 +47,8 @@ _loop:
     ret z   ;; if de = nullpointr then ret
     
     ;; IX = DE (IX = &ai) 
-    ld__ix_e
-    ld__ix_d
+    ld__ixl_e
+    ld__ixh_d
 
     ;; Perform ai behaviour
     ld a, e_ai_st(ix)
@@ -105,7 +105,7 @@ _objx_greater_or_equal:
     jr _endif_x
 _arrived_x:
     ld e_vx(ix), #0
-_endif_x
+_endif_x:
 
     ;; UPDATE Y
     ld a, e_ai_aim_y(ix)        ;a=obj.y
@@ -126,8 +126,8 @@ _arrived_y:
     ;; X and Y are both 0
     ld a, e_ai_pre_st(ix)
     ld e_ai_st(ix), a
-    ld e_ai_pre_st(ix), e_ai_st_move_to
-_endif_y
+    ld e_ai_pre_st(ix), #e_ai_st_move_to
+_endif_y:
     ret
 
 ;;=============================================================================

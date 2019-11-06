@@ -84,8 +84,8 @@ DefOffset 1, e_pspr_h
 DefOffset 1, e_lastVP_l
 DefOffset 1, e_lastVP_h
 ;; CMP AI 
-DefOffset 1, e_ai_aimx
-DefOffset 1, e_ai_aimy
+DefOffset 1, e_ai_aim_x
+DefOffset 1, e_ai_aim_y
 DefOffset 1, e_ai_st
 DefOffset 1, e_ai_pre_st
 DefOffset 1, e_ai_patrol_step_l
