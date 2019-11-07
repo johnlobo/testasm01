@@ -31,8 +31,7 @@ DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
 ;;      IX: pointer to the entity array
 ;;      a: number of entities created        
 man_entity_getArrayHL::
-    ld ix, #_entity_array
-    ld a, (_entity_num)
+    ld hl, #_entity_array
     ret
     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

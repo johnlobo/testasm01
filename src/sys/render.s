@@ -41,11 +41,11 @@ sys_eren_init::
     ;; Set border
     cpctm_setBorder_asm HW_WHITE    ;; set border to gray
     
-    ;; Draw background
-    ld hl, #_bg_back01
-    ld de, #0xc000
-    ld bc, #0x4000
-    ldir
+    ;;;; Draw background
+    ;;ld hl, #_bg_back01
+    ;;ld de, #0xc000
+    ;;ld bc, #0x4000
+    ;;ldir
 
     ;; Initializes the xor drawing funtion for the first use
     ld hl, #sys_eren_first_render_entities
@@ -63,14 +63,9 @@ sys_eren_init::
 ;;
 sys_eren_update::
 
-    cpctm_setBorder_asm HW_RED
-
     ;; render entities
 _render_function_ptr = .+1              ;; pointer to change the address to call
     call sys_eren_first_render_entities ;; render all entities the first time
-
-    cpctm_setBorder_asm HW_WHITE
-
 
     ret
     
@@ -91,6 +86,7 @@ _update_loop:
     cp #e_w_invalidEntity       ;; if (entity.width == invalid)
     ret z                       ;; return
 
+    cpctm_setBorder_asm HW_RED    ;; set border to gray
 
     ;; Erase previous Instance
     ld e, e_lastVP_l(ix)
@@ -118,6 +114,9 @@ _update_loop:
     pop bc
     pop hl
     call cpct_drawSpriteBlended_asm
+
+    cpctm_setBorder_asm HW_WHITE    ;; set border to gray
+
 
     ld bc, #sizeof_e
     add ix, bc

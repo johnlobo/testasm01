@@ -15,6 +15,8 @@
 ;;  Initializes input system
 ;;
 sys_input_init::
+    ;; Set entity number and pointers
+    ld (_entity_array_ptr_ix), hl
     ret
     
 ;;=============================================================================
@@ -25,6 +27,10 @@ sys_input_init::
 ;;  DETROYS AF, BC, DE,HL, IX
 ;;
 sys_input_update::
+
+_entity_array_ptr_ix = . +2
+    ld ix, #0x0000              ;; entity array pointer
+
     ;; Reset velocities
     ld e_vx(ix), #0
     ld e_vy(ix), #0

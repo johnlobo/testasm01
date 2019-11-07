@@ -49,7 +49,7 @@ _main::
    ;; Loop forever
 loop:
 
-    call man_game_update
-    call man_game_render
+   call man_game_update
+   call man_game_render
     
    jr    loop

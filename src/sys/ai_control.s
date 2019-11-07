@@ -2,12 +2,12 @@
 ;;  ENTITY AI CONTROL SYSTEM
 ;;
 
+.module sys_ai_control
+
 .include "cpctelera.h.s"
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
 .include "man/patrol.h.s"
-
-.module sys_ai_control
 
 ;;=============================================================================
 ;; Physics system constants

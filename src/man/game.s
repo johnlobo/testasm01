@@ -19,10 +19,14 @@
 ;; Manager Configuration Constants
 ;;=============================================================================
 ent1: DefineCmp_Entity 0, 0, 1, 1, 8 16, 1, _sp_pieces_0, 1
-ent2: DefineCmp_Entity 20, 40, -2, 2, 8 16, 1, _sp_pieces_1, 1
-ent3: DefineCmp_Entity 30, 70, 2, 0, 8 16, 1, _sp_pieces_2, 1
-ent4: DefineCmp_Entity 40, 100, -2, -2, 8 16, 1, _sp_pieces_1, 1
-ent5: DefineCmp_Entity 50, 130, 0, -2, 8 16, 1, _sp_pieces_2, 1
+ent2: DefineCmp_Entity 20, 40, -1, 2, 8 16, 1, _sp_pieces_1, 1
+ent3: DefineCmp_Entity 30, 70, 1, -2, 8 16, 1, _sp_pieces_2, 1
+ent4: DefineCmp_Entity 40, 100, -1, -2, 8 16, 1, _sp_pieces_1, 1
+ent5: DefineCmp_Entity 52, 130, 0, -2, 8 16, 1, _sp_pieces_2, 1
+ent6: DefineCmp_Entity 54, 130, 1, -2, 8 16, 1, _sp_pieces_2, 1
+ent7: DefineCmp_Entity 56, 130, 1, 2, 8 16, 1, _sp_pieces_1, 1
+ent8: DefineCmp_Entity 58, 130, 1, -2, 8 16, 1, _sp_pieces_2, 1
+ent9: DefineCmp_Entity 60, 130, 0, -2, 8 16, 1, _sp_pieces_1, 1
 
 ;;=============================================================================
 ;; man_game_init
@@ -30,12 +34,13 @@ ent5: DefineCmp_Entity 50, 130, 0, -2, 8 16, 1, _sp_pieces_2, 1
 
 man_game_init::
     ;; Init Entity Manager
-    call man_patrol_init
     call man_entity_init
     
     ;;Init Systems
     call sys_eren_init
+    call man_entity_getArrayHL
     call sys_physics_init
+    call man_entity_getArrayHL
     call sys_input_init
     
     ;; Init 5 test entitites
@@ -45,10 +50,18 @@ man_game_init::
     call man_entity_create
     ld hl, #ent3
     call man_entity_create
-    ld hl, #ent4
-    call man_entity_create
-    ld hl, #ent5
-    call man_entity_create
+    ;;ld hl, #ent4
+    ;;call man_entity_create
+    ;;ld hl, #ent5
+    ;;call man_entity_create
+    ;;ld hl, #ent6
+    ;;call man_entity_create
+    ;;ld hl, #ent7
+    ;;call man_entity_create
+    ;;ld hl, #ent8
+    ;;call man_entity_create
+    ;;ld hl, #ent9
+    ;;call man_entity_create
 
     ;; Init Patrol Manager (Requires entities to be created)
     call man_entity_getArrayHL
@@ -61,9 +74,7 @@ man_game_init::
 ;;=============================================================================
 
 man_game_update::
-    call man_entity_getArrayHL
     call sys_input_update
-    call man_entity_getArrayHL
     call sys_physics_update
     
     ret
@@ -73,7 +84,6 @@ man_game_update::
 ;;=============================================================================
 
 man_game_render::
-    call man_entity_getArrayHL
+    call cpct_waitVSYNC_asm
     call sys_eren_update
-    
     ret
