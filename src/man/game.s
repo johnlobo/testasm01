@@ -50,8 +50,8 @@ man_game_init::
     call man_entity_create
     ld hl, #ent3
     call man_entity_create
-    ;;ld hl, #ent4
-    ;;call man_entity_create
+    ld hl, #ent4
+    call man_entity_create
     ;;ld hl, #ent5
     ;;call man_entity_create
     ;;ld hl, #ent6

@@ -36,13 +36,82 @@
 ;; 
 .area _CODE
 
+.globl wait_for_int5
+
+;;=============================================================================
+;; _interrupt_handler:
+;; INPUT
+;;    HL: address of the new interrupt table
+;;
+;;=============================================================================
+int_counter: .db 06
+_interrupt_handler:
+   di
+   push af
+   push bc
+   push de
+   push hl
+   ;; Decrement int_counter
+   ld a, (int_counter)
+   dec a
+   ;; if int_counter != 0 goto _cont
+   jr nz, _cont
+_zero:
+   ld a, #06;; reset int_counter
+_cont:
+   ld (int_counter), a  ;; store int_counter
+
+   pop af
+   pop bc
+   pop de
+   pop hl
+   ei
+   reti
+
+;;=============================================================================
+;; set_interrupt_handler:
+;; INPUT
+;;    HL: address of the new interrupt table
+;;
+;;=============================================================================
+_set_interrupt_handler:
+   ;; sync raster with 0 interruption
+   call cpct_waitVSYNC_asm
+   halt
+   halt
+   call cpct_waitVSYNC_asm
+   ;; change interrupt jump to the new interrupt handler
+   ld hl, #0x38
+   ld (hl), #0xc3
+   inc hl
+   ld (hl), #<_interrupt_handler
+   inc hl
+   ld (hl), #>_interrupt_handler
+   inc hl
+   ld (hl), #0xc9
+   ret
+
+;;=============================================================================
+;; wait_for_int5:
+;; waits until raster reach interrupt 5
+;;    
+;;
+;;=============================================================================
+wait_for_int5:
+_loop_int5:
+   ld a, (int_counter)
+   cp #05
+   jr nz, _loop_int5
+   ret
+
 ;;
 ;; MAIN function. This is the entry point of the application.
 ;;    _main:: global symbol is required for correctly compiling and linking
 ;;
 _main::
    ;; Disable firmware to prevent it from interfering with string drawing
-   call cpct_disableFirmware_asm
+   ;;call cpct_disableFirmware_asm
+   call _set_interrupt_handler
    
    call man_game_init
 
