@@ -10,9 +10,11 @@
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
 .include "man/patrol.h.s"
+.include "man/entity_coll.h.s"
 .include "sys/render.h.s"
 .include "sys/input.h.s"
 .include "sys/physics.h.s"
+.include "sys/collision.h.s"
 .include "assets/assets.h.s"
 
 ;;=============================================================================
@@ -76,7 +78,8 @@ man_game_init::
 man_game_update::
     call sys_input_update
     call sys_physics_update
-    
+    call man_entity_collision_getArray
+    call sys_collision_update
     ret
     
 ;;=============================================================================

@@ -65,6 +65,7 @@ __off = 0
         .db _aist        ;; AI-previous-status (ai pre st)
         .dw nullptr     ;; Next AI Patrol step (ai patrol step)
         .db 1           ;; Moved flag
+        .db 0x00
      .endif
 .endm
 
@@ -95,6 +96,7 @@ DefOffset 1, e_ai_pre_st
 DefOffset 1, e_ai_patrol_step_l
 DefOffset 1, e_ai_patrol_step_h
 DefOffset 1, e_moved
+DefOffset 1, e_damage
 ;; Size of entity
 DefOffset 0, sizeof_e
 

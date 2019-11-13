@@ -53,7 +53,7 @@ sys_collision_init::
 ;;STACK USE: 0 bytes
 ;;
 sys_collision_update::			
-	;colorScreen HW_GREEN
+	;; Load pointer to the collision array
 	ld 	 e, (hl)				
 	inc 	hl 
 	ld 	 d, (hl)
@@ -128,7 +128,7 @@ sys_collision_check::
 
 ;; collision OK
 	;;if pts_1 obj
-	ld 	 a, e_type(iy)
+	ld 	 a, e_cmp_type(iy)
 	bit 	 1, a 	
 	jr 	nz, iy_pts1			
 	;;if enemy
@@ -144,7 +144,7 @@ iy_enemy:
 	ret   nz 		 		;; already been hit
 	inc 	e_damage(ix) 		;; if not yet, now we are being hit
 	call 	clean_entity_touched
-	call 	man_game_dec_score
+	;;call 	man_game_dec_score
 	ret
 
 iy_pts1:
@@ -152,7 +152,7 @@ iy_pts1:
 	bit 	0, a
 	ret 	nz
 	call 	clean_entity_touched
-	call 	man_game_inc_score
+	;;call 	man_game_inc_score
 	ret 
 
 no_collision:
@@ -163,6 +163,6 @@ clean_entity_touched:
 	inc 	e_damage(iy) 		
 	push 	iy 
 	pop  	ix 				;; we need iy pointer in ix
-	call  sys_render_clean_entity 
+	;;call  sys_render_clean_entity 
 
 	ret
