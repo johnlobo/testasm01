@@ -34,3 +34,14 @@
         .dw 0x0000
     .endm
 .endm
+
+;;=================================================================================
+;; DefinePointerArrayStructure
+;;
+.macro DefinePointerArrayStructure _Tname, _N
+ 	_Tname'_pend:	.dw _Tname'_array
+ 	_Tname'_array:
+ 	.rept _N 
+ 		.dw 0x0000
+ 	.endm
+.endm

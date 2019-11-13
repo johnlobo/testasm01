@@ -61,10 +61,10 @@ _zero:
 _cont:
    ld (int_counter), a  ;; store int_counter
 
-   pop af
-   pop bc
-   pop de
    pop hl
+   pop de
+   pop bc
+   pop af
    ei
    reti
 
@@ -97,10 +97,10 @@ _set_interrupt_handler:
 ;;    
 ;;
 ;;=============================================================================
-wait_for_int5:
+wait_for_int5::
 _loop_int5:
    ld a, (int_counter)
-   cp #05
+   cp #06
    jr nz, _loop_int5
    ret
 

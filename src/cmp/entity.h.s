@@ -57,12 +57,14 @@ __off = 0
         ;; CMP Render
         .db _w, _h      ;; size
         .dw _pspr       ;; Sprite
+        .dw 0xcccc      ;; current video memory pointer
         .dw 0xcccc      ;; last video memory pointer
         ;; CMP AI
         .db 0x00, 0x00  ;; AI-aim (ai aim x, ai aim y)
         .db _aist        ;; AI-status (ai st)
         .db _aist        ;; AI-previous-status (ai pre st)
         .dw nullptr     ;; Next AI Patrol step (ai patrol step)
+        .db 1           ;; Moved flag
      .endif
 .endm
 
@@ -81,6 +83,8 @@ DefOffset 1, e_w
 DefOffset 1, e_h
 DefOffset 1, e_pspr_l
 DefOffset 1, e_pspr_h
+DefOffset 1, e_currVP_l
+DefOffset 1, e_currVP_h
 DefOffset 1, e_lastVP_l
 DefOffset 1, e_lastVP_h
 ;; CMP AI 
@@ -90,6 +94,7 @@ DefOffset 1, e_ai_st
 DefOffset 1, e_ai_pre_st
 DefOffset 1, e_ai_patrol_step_l
 DefOffset 1, e_ai_patrol_step_h
+DefOffset 1, e_moved
 ;; Size of entity
 DefOffset 0, sizeof_e
 

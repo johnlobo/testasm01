@@ -17,5 +17,7 @@
 .globl cpct_waitVSYNC_asm
 .globl cpct_drawSpriteBlended_asm
 
+.globl wait_for_int5
+
 
 

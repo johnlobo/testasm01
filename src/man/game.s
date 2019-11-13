@@ -21,7 +21,7 @@
 ent1: DefineCmp_Entity 0, 0, 1, 1, 8 16, 1, _sp_pieces_0, 1
 ent2: DefineCmp_Entity 20, 40, -1, 2, 8 16, 1, _sp_pieces_1, 1
 ent3: DefineCmp_Entity 30, 70, 1, -2, 8 16, 1, _sp_pieces_2, 1
-ent4: DefineCmp_Entity 40, 100, -1, -2, 8 16, 1, _sp_pieces_1, 1
+ent4: DefineCmp_Entity 40, 100, -1, -2, 8 16, 1, _sp_pieces_3, 1
 ent5: DefineCmp_Entity 52, 130, 0, -2, 8 16, 1, _sp_pieces_2, 1
 ent6: DefineCmp_Entity 54, 130, 1, -2, 8 16, 1, _sp_pieces_2, 1
 ent7: DefineCmp_Entity 56, 130, 1, 2, 8 16, 1, _sp_pieces_1, 1
@@ -50,8 +50,8 @@ man_game_init::
     call man_entity_create
     ld hl, #ent3
     call man_entity_create
-    ld hl, #ent4
-    call man_entity_create
+    ;ld hl, #ent4
+    ;call man_entity_create
     ;;ld hl, #ent5
     ;;call man_entity_create
     ;;ld hl, #ent6
@@ -84,6 +84,8 @@ man_game_update::
 ;;=============================================================================
 
 man_game_render::
-    call cpct_waitVSYNC_asm
+    call sys_eren_pre_update
+    call wait_for_int5
     call sys_eren_update
+    call sys_eren_post_update
     ret
