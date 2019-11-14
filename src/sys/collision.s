@@ -14,6 +14,7 @@
 .include "cpctelera.h.s"
 .include "man/entity.h.s"
 .include "man/game.h.s"
+.include "man/entity_coll.h.s"
 .include "cmp/entity.h.s"
 .include "sys/render.h.s"
 
@@ -53,6 +54,7 @@ sys_collision_init::
 ;;STACK USE: 0 bytes
 ;;
 sys_collision_update::			
+    call man_entity_collision_HL
 	;; Load pointer to the collision array
 	ld 	 e, (hl)				
 	inc 	hl 

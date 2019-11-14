@@ -33,8 +33,8 @@ DefinePointerArrayStructure _collision, max_entities
 ;; RETURNS:
 ;;	HL: POINTER TO THE START OF THE ARRAY
 ;;
-man_entity_collision_getArray::
-	ld	hl, #_collision_array
+man_entity_collision_HL::
+	ld	hl, #_collision_ptr_array
 	
 	ret
 
@@ -47,9 +47,16 @@ man_entity_collision_getArray::
 ;; DESTROYS: AF, HL
 ;;
 man_entity_collision_init::
-	ld 	hl, #_collision_array
-	ld 	(_collision_pend), hl
-
+	ld hl, (#_collision_ptr_array)     ;; Points to the beggining of the pointer array
+    ld (#_collision_ptr_pend), hl      ;; Point hl the last point of the array
+    ;; initializes pointer array with zeroes
+    xor a                       ;; a = 0
+    ld (hl), a                  ;; set initial byte = 0
+    ld e, h                     ;; copy hl to de
+    ld d, l                     ;;
+    inc de                      ;; inc de    
+    ld bc, #2*max_entities-1    ;; set size to zero
+    ldir                        ;; copy zeroes 
 
 	ret 
 
@@ -62,13 +69,13 @@ man_entity_collision_init::
 ;;
 man_entity_collision_addPointer::
 
-	ld 	hl, (_collision_pend) 	; hl = pointer to first byte of _collision_array
+	ld 	hl, (_collision_ptr_pend) 	; hl = pointer to first byte of _collision_array
 	ld__a_ixl
 	ld 	(hl), a 			; save 1st byte of pointer 
 	inc 	hl
 	ld__a_ixh 
 	ld 	(hl), a   			; save 2nd byte of pointer
 	inc 	hl 
-	ld 	(_collision_pend), hl
+	ld 	(_collision_ptr_pend), hl
 
 	ret

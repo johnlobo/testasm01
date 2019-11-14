@@ -78,7 +78,6 @@ man_game_init::
 man_game_update::
     call sys_input_update
     call sys_physics_update
-    call man_entity_collision_getArray
     call sys_collision_update
     ret
     

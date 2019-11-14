@@ -15,11 +15,11 @@
 
 ;;-----------------------------------------------------------------
 ;; Entity Components
-DefineComponentPointerArrayStructure_Size _ai, max_entities
+DefinePointerArrayStructure _ai, max_entities
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUNC: man_entity_ai_init
-;;    
+;;  Sets initial pointers to begginig of th array and sets everything to zero
 ;; INPUT:
 ;; DESTROYS:
 ;;    AF, HL, DE, BC
@@ -27,9 +27,9 @@ DefineComponentPointerArrayStructure_Size _ai, max_entities
 ;;  HL: pointer to the first element of the array
 ;;
 man_entity_ai_init::
-    ld hl, (#_ai_ptr_array)     ;; Points to the beggin
-    ld (#_ai_ptr_pend), hl       ;; Point hl the last point of the array
-
+    ld hl, (#_ai_ptr_array)     ;; Points to the beggining of the pointer array
+    ld (#_ai_ptr_pend), hl      ;; Point hl the last point of the array
+    ;; initializes pointer array with zeroes
     xor a                       ;; a = 0
     ld (hl), a                  ;; set initial byte = 0
     ld e, h                     ;; copy hl to de

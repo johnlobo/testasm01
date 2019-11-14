@@ -27,7 +27,7 @@
 ;;=================================================================================
 ;; DefineComponentPointerArrayStructure_Size
 ;;
-.macro DefineComponentPointerArrayStructure_Size _Tname, _N
+.macro DefinePointerArrayStructure _Tname, _N
     _Tname'_ptr_pend: .dw _Tname'_ptr_array
     _Tname'_ptr_array:
     .rept _N
@@ -38,10 +38,10 @@
 ;;=================================================================================
 ;; DefinePointerArrayStructure
 ;;
-.macro DefinePointerArrayStructure _Tname, _N
- 	_Tname'_pend:	.dw _Tname'_array
- 	_Tname'_array:
- 	.rept _N 
- 		.dw 0x0000
- 	.endm
-.endm
+;;.macro DefinePointerArrayStructure _Tname, _N
+;; 	_Tname'_pend:	.dw _Tname'_array
+;; 	_Tname'_array:
+;; 	.rept _N 
+;; 		.dw 0x0000
+;; 	.endm
+;;.endm
