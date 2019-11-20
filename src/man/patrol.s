@@ -4,6 +4,7 @@
 
 .include "cpctelera.h.s"
 .include "man/patrol.h.s"
+.include "man/entity.h.s"
 .include "cmp/entity.h.s"
 
 ;;
@@ -45,6 +46,7 @@ _p2:
 ;; Sets patrol for all entities
 ;;
 man_patrol_init::
+    call man_entity_getArrayHL
     ;; First patrol will be Patro-ID 0
     ld b, #0        ;; B = Patrol ID
 

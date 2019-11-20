@@ -28,8 +28,8 @@
 ;; DefineComponentPointerArrayStructure_Size
 ;;
 .macro DefinePointerArrayStructure _Tname, _N
-    _Tname'_ptr_pend: .dw _Tname'_ptr_array
-    _Tname'_ptr_array:
+    _Tname'_ptr_pend:: .dw _Tname'_ptr_array
+    _Tname'_ptr_array::
     .rept _N
         .dw 0x0000
     .endm

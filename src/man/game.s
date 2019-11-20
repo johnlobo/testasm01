@@ -65,8 +65,9 @@ man_game_init::
     ;;ld hl, #ent9
     ;;call man_entity_create
 
+    call man_entity_collision_init
+
     ;; Init Patrol Manager (Requires entities to be created)
-    call man_entity_getArrayHL
     call man_patrol_init
 
     ret
