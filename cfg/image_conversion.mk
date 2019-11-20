@@ -51,6 +51,8 @@ $(eval $(call IMG2SP, SET_FOLDER      , src/assets/sprites        ))
 $(eval $(call IMG2SP, SET_PALETTE_FW  , $(PALETTE)         ))
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))
 $(eval $(call IMG2SP, CONVERT         , img/pieces.png , 16, 16, sp_pieces, pal_main))
+$(eval $(call IMG2SP, CONVERT         , img/player01.png , 16, 16, sp_player01,))
+$(eval $(call IMG2SP, CONVERT         , img/player02.png , 16, 16, sp_player02,))
 # background
 $(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
 $(eval $(call IMG2SP, SET_FOLDER      , src/assets/screen        ))
