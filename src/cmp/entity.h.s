@@ -31,7 +31,7 @@ __off = 0
  
 ;; Default constructor for Entity t
   .macro DefineCmp_Entity_default
-    DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, e_cmp_default, nullptr, 1
+    DefineCmp_Entity  0,0,0,0, e_w_invalidEntity, 1, e_cmp_default, nullptr, nullptr, 1
   .endm
   
 ;; Defines an array of N entities with default values
@@ -43,9 +43,9 @@ __off = 0
   
 ;;Defines a new entity structure
 ;; All entity data together to simplify acess, at the cost
-.macro DefineCmp_Entity _x, _y, _vx, _vy, _w, _h, _cmp_type, _pspr, _aist
+.macro DefineCmp_Entity _x, _y, _vx, _vy, _w, _h, _cmp_type, _pspr, _animptr, _aist
     .narg __argn
-    .if __argn - 9
+    .if __argn - 10
         .error 1
     .else
         ;; Type of component
@@ -54,6 +54,8 @@ __off = 0
         .db _x, _y      ;; position
         ;; CMP Velocity
         .db _vx, _vy    ;; velocity
+        ;; CMP Animation
+        .dw _animptr
         ;; CMP Render
         .db _w, _h      ;; size
         .dw _pspr       ;; Sprite
@@ -73,13 +75,16 @@ __off = 0
 ;; Entity offsets
 ;;
 DefOffset 1, e_cmp_type
-;; CMP Po stion
+;; CMP Position
 DefOffset 1, e_x
 DefOffset 1, e_y
-;; CMP Ve locity
+;; CMP Velocity
 DefOffset 1, e_vx
 DefOffset 1, e_vy
-;; CMP Re nder
+;; Animation
+DefOffset 1, e_anim_ptr_l
+DefOffset 1, e_anim_ptr_h
+;; CMP Render
 DefOffset 1, e_w
 DefOffset 1, e_h
 DefOffset 1, e_pspr_l
@@ -110,17 +115,27 @@ Enum e_ai_st, move_to
 Enum e_ai_st, patrol
 
 ;;=============================================================================
-;; entity component types
+;; Entity component types
 ;;
 e_cmp_AI = 0x01
-e_cmp_Render = 0x02
-e_cmp_Physics = 0x04
+e_cmp_Physics = 0x02
+e_cmp_Animation = 0x04
+e_cmp_Render = 0x08
 e_cmp_default = e_cmp_Render | e_cmp_Physics
+
+;;=============================================================================
+;; Entity component IDs
+;;
+DefEnum e_cmpID
+Enum e_cmpID, AI
+Enum e_cmpID, Physics
+Enum e_cmpID, Animation
+Enum e_cmpID, Num_Components
 
 ;;=============================================================================
 ;; Entity Status enum
 ;;
-e_w_invalidEntity = 0xff
+e_w_invalidEntity = 0xff  ;;Entity width -1 means invalid entity
 
 ;;=============================================================================
 ;; Utility Definitions

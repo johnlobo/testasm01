@@ -11,6 +11,7 @@
 .include "man/entity.h.s"
 .include "man/patrol.h.s"
 .include "man/entity_coll.h.s"
+.include "man/animations.h.s"
 .include "sys/render.h.s"
 .include "sys/input.h.s"
 .include "sys/physics.h.s"
@@ -20,15 +21,17 @@
 ;;=============================================================================
 ;; Manager Configuration Constants
 ;;=============================================================================
-ent1: DefineCmp_Entity 0, 0, 1, 1, 8 16, 1, _sp_pieces_0, 1
-ent2: DefineCmp_Entity 20, 40, -1, 2, 8 16, 1, _sp_pieces_1, 1
-ent3: DefineCmp_Entity 30, 70, 1, -2, 8 16, 1, _sp_pieces_2, 1
-ent4: DefineCmp_Entity 40, 100, -1, -2, 8 16, 1, _sp_pieces_3, 1
-ent5: DefineCmp_Entity 52, 130, 0, -2, 8 16, 1, _sp_pieces_2, 1
-ent6: DefineCmp_Entity 54, 130, 1, -2, 8 16, 1, _sp_pieces_2, 1
-ent7: DefineCmp_Entity 56, 130, 1, 2, 8 16, 1, _sp_pieces_1, 1
-ent8: DefineCmp_Entity 58, 130, 1, -2, 8 16, 1, _sp_pieces_2, 1
-ent9: DefineCmp_Entity 60, 130, 0, -2, 8 16, 1, _sp_pieces_1, 1
+e_cmp_ai_entity = e_cmp_default | e_cmp_AI
+
+ent1: DefineCmp_Entity 0, 0, 1, 1, 8 16, 1, _sp_pieces_0, _player01_anim_01, e_ai_st_noAI
+ent2: DefineCmp_Entity 20, 40, -1, 2, 8 16, 1, _sp_pieces_1, nullptr, e_ai_st_stand_by
+ent3: DefineCmp_Entity 30, 70, 1, -2, 8 16, 1, _sp_pieces_2, nullptr, e_ai_st_noAI
+ent4: DefineCmp_Entity 40, 100, -1, -2, 8 16, 1, _sp_pieces_3, nullptr, e_ai_st_noAI
+ent5: DefineCmp_Entity 52, 130, 0, -2, 8 16, 1, _sp_pieces_2, nullptr, e_ai_st_noAI
+ent6: DefineCmp_Entity 54, 130, 1, -2, 8 16, 1, _sp_pieces_2, nullptr, e_ai_st_noAI
+ent7: DefineCmp_Entity 56, 130, 1, 2, 8 16, 1, _sp_pieces_1, nullptr, e_ai_st_noAI
+ent8: DefineCmp_Entity 58, 130, 1, -2, 8 16, 1, _sp_pieces_2, nullptr e_ai_st_noAI
+ent9: DefineCmp_Entity 60, 130, 0, -2, 8 16, 1, _sp_pieces_1,, nullptr e_ai_st_noAI
 
 ;;=============================================================================
 ;; man_game_init

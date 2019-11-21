@@ -10,6 +10,7 @@
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
 .include "man/entity_ai.h.s"
+.include "man/components.h.s"
 .include "assets/assets.h.s"
 
 
@@ -23,7 +24,7 @@ DefineComponentArrayStructure _entity, max_entities, DefineCmp_Entity_default
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; FUNC: man_entity_getArray
+;; FUNC: man_entity_getArrayHL
 ;;      Gets a pointer to the array of entities in HL 
 ;; INPUT:
 ;; DESTROYS: HL
@@ -44,6 +45,8 @@ man_entity_getArrayHL::
 ;;  HL: pointer to the start of the array
 ;;
 man_entity_init::
+    ;; Init other subsidiary managers
+    call man_components_init
     ;; Reset all component vector values
     xor a
     ld (_entity_num), a
@@ -113,6 +116,25 @@ man_entity_create::
     ;; Check for components to add the entity to
     ld a, e_cmp_type(ix)
     and #e_cmp_AI
-    call nz, man_entity_ai_add
+    jr z, _noAI
+_AI:
+    ld a, #e_cmpID_AI
+    call man_components_add
+_no_AI:
+    ld a, e_cmp_type(ix)
+    and #e_cmp_Physics
+    jr z, _noPhys
+_Phys:
+    ld a, #e_cmpID_Physics
+    call man_components_add
+_noPhys:
+    ld a, e_cmp_type(ix)
+    and #e_cmp_Animation
+    jr z, _noAnim
+_Anim:
+    ld a, #e_cmpID_Animation
+    call man_components_add
+_noAnim:
+
     
     ret
