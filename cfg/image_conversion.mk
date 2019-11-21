@@ -59,7 +59,7 @@ $(eval $(call IMG2SP, CONVERT         , img/player02.png , 16, 16, sp_player02,)
 #$(eval $(call IMG2SP, CONVERT         , img/back01.png , 160, 200, bg_back01))
 #Tilemap
 $(eval $(call IMG2SP, SET_FOLDER      , src/assets/tiles        ))
-$(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , zgtiles            ))
 $(eval $(call IMG2SP, CONVERT         , img/tennis_court_tiles.png , 8, 8, tl_tiles,))
 
 
