@@ -9,6 +9,7 @@
 .include "man/entity.h.s"
 .include "cpct_functions.h.s"
 .include "assets/assets.h.s"
+.include "sys/render.h.s"
 
 
 
@@ -41,11 +42,35 @@ sys_eren_init::
     ;; Set border
     cpctm_setBorder_asm HW_WHITE    ;; set border to gray
     
+    ;; Draw Background
+
+    ;; 1) Use setDrawTilemap4x8_ag to configure drawTilemap4x8_ag internal values.
+    ;; First 2 values are the size of the window to be drawn in tiles (all the court map, 
+    ;; so g_courtMap_W x g_courtMap_H or 18x22). Next value is the width of the complete 
+    ;; tilemap in tiles (g_courtMap_W or 18). Last value is the address where the tileset
+    ;; definition starts (g_tiles_00 is the address where the definition of the first
+    ;; tile starts, and next tiles are defined consecutively in memory)
+    ld c, #MAP_W
+    ld b, #MAP_H
+    ld de, #MAP_W
+    ld hl, #_tl_tiles_00
+    call cpct_etm_setDrawTilemap4x8_ag_asm
+
+    ;;2) After configuring values for drawTilemap4x8_ag function, we only need to call it
+    ;;each time we wanted to draw the tilemap. It only needs to now 2 things: location
+    ;;in video memory where to draw the tilemap (we calculated it before: TILEMAP_VMEM),
+    ;;and a pointer to the first tile in the tilemap to be drawn (As we want to draw the
+    ;;whole tilemap, the first tile to be drawn is the first of the complete tilemap, and
+    ;;its address is where the tilemap starts, so g_courtMap).
+    ld hl, #CPCT_VMEM_START_ASM
+    ld de, #_tennis_court
+    call cpct_etm_drawTilemap4x8_ag_asm
+
     ;;;; Draw background
-    ld hl, #_bg_back01
-    ld de, #0xc000
-    ld bc, #0x4000
-    ldir
+    ;;ld hl, #_bg_back01
+    ;;ld de, #0xc000
+    ;;ld bc, #0x4000
+    ;;ldir
 
     ;; Initializes the xor drawing funtion for the first use
     ld hl, #sys_eren_first_render_entities

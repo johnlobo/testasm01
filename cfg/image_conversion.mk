@@ -54,9 +54,13 @@ $(eval $(call IMG2SP, CONVERT         , img/pieces.png , 16, 16, sp_pieces, pal_
 $(eval $(call IMG2SP, CONVERT         , img/player01.png , 16, 16, sp_player01,))
 $(eval $(call IMG2SP, CONVERT         , img/player02.png , 16, 16, sp_player02,))
 # background
-$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
-$(eval $(call IMG2SP, SET_FOLDER      , src/assets/screen        ))
-$(eval $(call IMG2SP, CONVERT         , img/back01.png , 160, 200, bg_back01))
+#$(eval $(call IMG2SP, SET_IMG_FORMAT  , screen            ))
+#$(eval $(call IMG2SP, SET_FOLDER      , src/assets/screen        ))
+#$(eval $(call IMG2SP, CONVERT         , img/back01.png , 160, 200, bg_back01))
+#Tilemap
+$(eval $(call IMG2SP, SET_FOLDER      , src/assets/tiles        ))
+$(eval $(call IMG2SP, SET_IMG_FORMAT  , sprites            ))
+$(eval $(call IMG2SP, CONVERT         , img/tennis_court_tiles.png , 8, 8, tl_tiles,))
 
 
 
