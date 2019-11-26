@@ -120,7 +120,7 @@ man_entity_create::
 _AI:
     ld a, #e_cmpID_AI
     call man_components_add
-_no_AI:
+_noAI:
     ld a, e_cmp_type(ix)
     and #e_cmp_Physics
     jr z, _noPhys

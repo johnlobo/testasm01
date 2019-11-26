@@ -49,6 +49,7 @@ man_entity_collision_HL::
 man_entity_collision_init::
 	ld hl, (#_collision_ptr_array)     ;; Points to the beggining of the pointer array
     ld (#_collision_ptr_pend), hl      ;; Point hl the last point of the array
+	
     ;; initializes pointer array with zeroes
     xor a                       ;; a = 0
     ld (hl), a                  ;; set initial byte = 0

@@ -14,7 +14,7 @@
 ;; Manager Member Variables
 ;;=============================================================================
 
-DefineComponentPointersTable entities, max_entities, e_cmpID_Num_Components,
+DefineComponentPointersTable _entities,  e_cmpID_Num_Components, max_entities
 _components_size = . - _entities_components
 
 ;;=============================================================================
@@ -23,16 +23,16 @@ _components_size = . - _entities_components
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; FUNC: man_components_getComponentPtrHL
-;;      Gets a pointer to the array of entities in HL 
+;;     Loads HL with the address of the component strructure of pointers (including pend) 
 ;; INPUT:
 ;;      A: Camponent ID        
 ;; DESTROYS: AF
 ;; RETURNS:
-;;      HL Pointer to the start od IX: pointer to the entity array
+;;      HL Pointer to the start of the pointers array
 ;;      a: number of entities created        
 man_components_getComponentPtrHL::
     ld hl, #_entities_access_table
-    add a
+    add a                           ;; Each pointer in the access table takes 2 bytes
     add_hl_a
 
     ;; Get pointer to the component structure in HL
@@ -52,7 +52,9 @@ man_components_getComponentPtrHL::
 ;;      IX: pointer to the entity array
 ;;      a: number of entities created        
 man_components_getArrayHL::
-    ld hl, #_entity_array
+    call man_components_getComponentPtrHL
+    inc hl
+    inc hl
     ret
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -77,9 +79,10 @@ man_components_init::
     ld b, #e_cmpID_Num_Components
 _init_next_pend:
     ;; Get in HL a pointer to the next component
-    ld, a, b
+    ld a, b
     dec a
     call man_components_getComponentPtrHL
+    ;; sets pend(HL location) with array address (HL + 2)
     ld e, l
     ld d, h
     inc de
@@ -89,5 +92,17 @@ _init_next_pend:
     ld (hl), d
     djnz _init_next_pend
 
+    ret
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; FUNC: man_components_init
+;;    
+;; INPUT:
+;; DESTROYS:
+;;    AF, BC, DE, HL
+;; RETURN:
+;;  HL: pointer to the start of the array
+;;
+man_components_add::
     ret
 
