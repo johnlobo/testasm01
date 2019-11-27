@@ -9,6 +9,13 @@
 .include "cpct_functions.h.s"
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
+.include "man/patrol.h.s"
+.include "man/entity_coll.h.s"
+.include "man/animations.h.s"
+.include "sys/render.h.s"
+.include "sys/input.h.s"
+.include "sys/physics.h.s"
+.include "sys/collision.h.s"
 .include "assets/assets.h.s"
 
 ;;=============================================================================
@@ -35,11 +42,11 @@ man_game_init::
     call man_entity_init
     
     ;;Init Systems
-    ;;call sys_eren_init
-    ;;call man_entity_getArrayHL
-    ;;call sys_physics_init
-    ;;call man_entity_getArrayHL
-    ;;call sys_input_init
+    call sys_eren_init
+    call man_entity_getArrayHL
+    call sys_physics_init
+    call man_entity_getArrayHL
+    call sys_input_init
     
     ;; Init 5 test entitites
     ld hl, #ent1
@@ -61,10 +68,10 @@ man_game_init::
     ;;ld hl, #ent9
     ;;call man_entity_create
 
-    ;;call man_entity_collision_init
+    call man_entity_collision_init
 
     ;; Init Patrol Manager (Requires entities to be created)
-    ;;call man_patrol_init
+    call man_patrol_init
 
     ret
 
@@ -73,9 +80,9 @@ man_game_init::
 ;;=============================================================================
 
 man_game_update::
-    ;;call sys_input_update
-    ;;call sys_physics_update
-    ;;call sys_collision_update
+    call sys_input_update
+    call sys_physics_update
+    call sys_collision_update
     ret
     
 ;;=============================================================================
@@ -83,8 +90,8 @@ man_game_update::
 ;;=============================================================================
 
 man_game_render::
-    ;;call sys_eren_pre_update
-    ;;call wait_for_int5
-    ;;call sys_eren_update
-    ;;call sys_eren_post_update
+    call sys_eren_pre_update
+    call wait_for_int5
+    call sys_eren_update
+    call sys_eren_post_update
     ret

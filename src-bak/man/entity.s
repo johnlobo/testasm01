@@ -9,6 +9,7 @@
 .include "cmp/array_structure.h.s"
 .include "cmp/entity.h.s"
 .include "man/entity.h.s"
+.include "man/entity_ai.h.s"
 .include "man/components.h.s"
 .include "assets/assets.h.s"
 
